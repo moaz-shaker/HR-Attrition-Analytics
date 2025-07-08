@@ -1,0 +1,47 @@
+#Generating Random names queries
+
+                   ---this table contains List of names with gender----
+Select * from Names
+
+--------------------------------------------------------------------------------------------
+
+
+              ---Creating View for Males = Number of males In our dataset=882---  
+Create View [dbo].[Males] as
+-- The outer Query for generating Random 882(First_name) that != The random (Last_name)from Subquery--
+select top 882 n.name as First_name,t1.name as Last_name,n.name + ' '+t1.name as Full_name ,n.gender
+--the subquery for generating 882 Random male (Last_names)>> NEWID()Function for substracting Random              
+                                                                                              names--
+from names n,  
+              (Select top 882 name,gender
+               from Names
+               Where gender='Male'
+               order by NEWID() ) as t1
+where n.gender = 'Male'
+order by NEWID();
+
+
+--------------------------------------------------------------------------------------------
+
+                    --Creating View for Females = Number of Females In our dataset=588--- 
+Create View [dbo].Females as	
+                   -- The outer Query for generating Random 588 Female (First_name) that != The random (Last_name) from the SubQuery--
+select top 588 n.name as First_name,t1.name as Last_name,n.name + ' '+t1.name as Full_Name,n.gender
+--the subquery for generating 588 Random male (Last_names)>> NEWID()Function for substracting Random     
+                                                                                             names--
+from names n,          
+             (Select top 588 name,gender
+              from Names
+              Where gender='Male'
+              order by NEWID() ) as t1
+where n.gender = 'Female'
+order by NEWID();
+
+
+--------------------------------------------------------------------------------------------
+
+                     ----- Creating Over All View that contains Males and Females----
+Create View [dbo].[Fullnames] as
+select First_name,Last_name,Full_name from Males
+union all
+select First_name,Last_name,Full_name from Females
