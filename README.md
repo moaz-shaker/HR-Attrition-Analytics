@@ -1,6 +1,3 @@
-Your current README.md provides a visual overview with screenshots but lacks detailed information about the project, its purpose, setup instructions, and context for new users. Here’s an enhanced version you can use to make the README more comprehensive and user-friendly:
-
----
 
 # HR Attrition Analytics
 
